@@ -40,3 +40,12 @@ services:
           dockerfile: frankenphp.Dockerfile
         ports:
             - "9804:9804"
+
+    phpfpm:
+        container_name: "phpfpm"
+        image: "local/phpfpm"
+        build:
+          context: .
+          dockerfile: phpfpm.Dockerfile
+        ports:
+            - "9805:9000"
