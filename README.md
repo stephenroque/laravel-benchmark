@@ -1,51 +1,60 @@
 # Laravel Benchmark (Custom Fork)
 
-This is a fork of the [`thecaliskan/laravel-benchmark`](https://github.com/thecaliskan/laravel-benchmark) project, modified to include:
+This is a fork of the [`thecaliskan/laravel-benchmark`](https://github.com/thecaliskan/laravel-benchmark) project, updated to benchmark **Laravel 12** on **PHP 8.4**.
 
-  * Support for the **ARM64 architecture (Apple Silicon)**.
-  * A **PHP-FPM + Nginx** service for performance comparison.
-  * An **automation script** to run all benchmarks at once.
+This fork includes several enhancements:
+* Support for the **ARM64 architecture (Apple Silicon)**.
+* A **PHP-FPM + Nginx** service for performance comparison.
+* An **automation script** to run all benchmarks at once.
 
-## Setup and Execution
+## 🛠️ Stack
+
+This benchmark runs on the following stack:
+
+* **PHP:** 8.4
+* **Laravel Framework:** 12
+* **Application Servers:** OpenSwoole, Swoole, RoadRunner, FrankenPHP
+* **Traditional Server:** Nginx + PHP-FPM
+
+---
+
+## 🚀 Setup and Execution
 
 Unlike the original project, this setup requires building the Docker images locally to ensure compatibility with your CPU architecture.
 
 1.  **Clone the repository:**
-
     ```bash
     git clone https://github.com/stephenroque/laravel-benchmark.git
     cd laravel-benchmark
     ```
 
 2.  **Build and run the containers:**
-
     ```bash
     docker compose up -d --build
     ```
-
     The `--build` flag is essential on the first run to build the custom images.
 
-## Benchmark
+---
+
+## 📊 Benchmark
 
 You can run the tests in two ways:
 
-### 1\. Automated Benchmark (Recommended)
+### 1. Automated Benchmark (Recommended)
 
 Use the provided script to run all tests in sequence and save the results to a `benchmark.txt` file.
 
 1.  **Make the script executable (only needed once):**
-
     ```bash
     chmod +x run_benchmark.sh
     ```
 
 2.  **Run the tests:**
-
     ```bash
     ./run_benchmark.sh
     ```
 
-### 2\. Manual Benchmark
+### 2. Manual Benchmark
 
 If you prefer to test each service individually, use the `wrk` commands below.
 
