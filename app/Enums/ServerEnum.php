@@ -8,6 +8,7 @@ enum ServerEnum
     case Swoole;
     case RoadRunner;
     case FrankenPHP;
+    case PhpFpm;
 
     public function getPort(): int
     {
@@ -16,6 +17,7 @@ enum ServerEnum
             self::Swoole => 9802,
             self::RoadRunner => 9803,
             self::FrankenPHP => 9804,
+            self::PhpFpm => 9805,
         };
     }
 
@@ -31,6 +33,9 @@ enum ServerEnum
 
     public function getTitle(): string
     {
-        return $this->name;
+        return match($this) {
+            self::PhpFpm => 'PHP-FPM',
+            default => $this->name,
+        };
     }
 }
