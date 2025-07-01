@@ -1,18 +1,56 @@
-## Laravel Benchmark
+# Laravel Benchmark (Custom Fork)
 
+This is a fork of the [`thecaliskan/laravel-benchmark`](https://github.com/thecaliskan/laravel-benchmark) project, modified to include:
 
-### Install
+  * Support for the **ARM64 architecture (Apple Silicon)**.
+  * A **PHP-FPM + Nginx** service for performance comparison.
+  * An **automation script** to run all benchmarks at once.
 
-```bash
-wget https://raw.githubusercontent.com/thecaliskan/laravel-benchmark/master/docker-compose.yml
+## Setup and Execution
 
-docker compose up -d
-```
+Unlike the original project, this setup requires building the Docker images locally to ensure compatibility with your CPU architecture.
 
-### Benchmark
+1.  **Clone the repository:**
 
+    ```bash
+    git clone https://github.com/stephenroque/laravel-benchmark.git
+    cd laravel-benchmark
+    ```
+
+2.  **Build and run the containers:**
+
+    ```bash
+    docker compose up -d --build
+    ```
+
+    The `--build` flag is essential on the first run to build the custom images.
+
+## Benchmark
+
+You can run the tests in two ways:
+
+### 1\. Automated Benchmark (Recommended)
+
+Use the provided script to run all tests in sequence and save the results to a `benchmark.txt` file.
+
+1.  **Make the script executable (only needed once):**
+
+    ```bash
+    chmod +x run_benchmark.sh
+    ```
+
+2.  **Run the tests:**
+
+    ```bash
+    ./run_benchmark.sh
+    ```
+
+### 2\. Manual Benchmark
+
+If you prefer to test each service individually, use the `wrk` commands below.
 
 #### OpenSwoole
+
 ```bash
 wrk -t16 -c100 -d30s --latency  http://127.0.0.1:9801/api/health-check
 wrk -t16 -c100 -d30s --latency  http://127.0.0.1:9801/api/static
@@ -41,4 +79,12 @@ wrk -t16 -c100 -d30s --latency  http://127.0.0.1:9803/api/http-request
 wrk -t16 -c100 -d30s --latency  http://127.0.0.1:9804/api/health-check
 wrk -t16 -c100 -d30s --latency  http://127.0.0.1:9804/api/static
 wrk -t16 -c100 -d30s --latency  http://127.0.0.1:9804/api/http-request
+```
+
+#### PHP-FPM
+
+```bash
+wrk -t16 -c100 -d30s --latency  http://127.0.0.1:9805/api/health-check
+wrk -t16 -c100 -d30s --latency  http://127.0.0.1:9805/api/static
+wrk -t16 -c100 -d30s --latency  http://127.0.0.1:9805/api/http-request
 ```
