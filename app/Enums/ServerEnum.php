@@ -33,9 +33,6 @@ enum ServerEnum
 
     public function getTitle(): string
     {
-        return match($this) {
-            self::PhpFpm => 'PHP-FPM',
-            default => $this->name,
-        };
+        return $this->name;
     }
 }
